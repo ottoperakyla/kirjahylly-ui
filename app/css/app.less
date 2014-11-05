@@ -1,0 +1,106 @@
+/* main css */
+
+@reviews-box-border: 2px solid #bfbfbf;
+
+header {
+  background-color: #323232;
+}
+
+.header-logo {
+    background: url('../img/kirjahylly-logo.jpg') no-repeat right center;
+    height: 122px;
+}
+
+.nav-tabs {
+  padding-top: 80px;
+}
+
+.spacer {
+  height: 7px;
+  background-color: #d0d0d0;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.breadcrumbs {
+  font-style: italic;
+  color: #afafaf;
+  text-transform: capitalize;
+}
+
+input {
+  width: 100%;
+}
+
+#content {
+  padding: 50px 0;
+}
+
+.slider-arrow {
+  height: 104px;
+  width: 17px;
+  font-size: 0;
+}
+
+#arrow-l {
+  background: url('../img/arrow-l.jpg') no-repeat center center;
+}
+
+#arrow-r {
+  background: url('../img/arrow-r.jpg') no-repeat center center;
+}
+
+.reviews-box {
+  border-top: @reviews-box-border;
+  border-bottom: @reviews-box-border;
+  overflow: hidden;
+}
+
+.review {
+  border-top: @reviews-box-border;
+}
+
+.review:nth-child(1) {
+  border-top: 0 !important;
+}
+
+footer {
+  background-color: #e1dfe0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-content {
+  height: 68px;
+  background: url('../img/fes-logo.jpg') no-repeat left center;
+}
+
+
+/* demo app css stylesheet */
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+  &:before {
+    content: "[";
+  }
+  &:after {
+    content: "]";
+  }
+}
+
+.menu {
+  li {
+    display: inline;
+    &:before {
+      content: "|";
+      padding-right: 0.3em;
+    }
+    &:nth-child(1):before {
+      content: "";
+      padding: 0;
+    }
+  }
+}

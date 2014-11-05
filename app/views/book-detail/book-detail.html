@@ -1,0 +1,64 @@
+<breadcrumbs></breadcrumbs>
+
+<div class="row">
+	<div class="col-md-8">
+		<div class="row">
+			<div class="col-md-2">
+				<img ng-src="{{'demodata/img/' + book.image}}">
+			</div>
+			<div class="col-md-10">
+				<h1>{{book.author}}:<br><strong>{{book.title}}</strong></h1>
+				<p>Tunniste: {{book.id}}</p>
+				<p>Julkaisu vuosi: {{book.year}}</p>
+				<button>Lainaa</button>
+				<button>Palauta ja arvioi</button>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<p>{{book.description}}</p>
+			</div>
+		</div>
+
+		<div class="reviews-box">
+			<div class="row">
+				<div class="col-md-12">
+					ARVIOT {{book.reviews[0].stars}}
+				</div>
+			</div>
+
+			<div class="row review" ng-repeat="review in book.reviews">
+				<div class="col-md-12">
+					<p>{{review.body | limitTo: 80 | dots}} <a href="#">&#x25BC;</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-md-4 opinions-box">
+		<h2>Plaaplaa ajatuksia</h2>
+		<div class="row" ng-repeat="opinion in book.opinions">
+			<div class="col-md-8">
+				<p>{{213193223 | date}}</p>
+			</div>
+			<div class="col-md-4">
+				{{opinion.user}}
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<p>{{opinion.body}}</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8">
+				<p>Osallistu keskusteluun</p>
+			</div>
+			<div class="col-md-4">
+				Lisää
+			</div>
+		</div>
+	</div>
+</div>
+
