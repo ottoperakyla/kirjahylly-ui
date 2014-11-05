@@ -1,0 +1,17 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-1 hidden-sm hidden-xs slider-arrow" id="arrow-l">
+			prev
+		</div>
+		<div class="col-md-10 col-sm-12 col-xs-12">
+			<div ng-repeat="image in images" init-book-list-slider>
+				<a href="#/books/{{$index}}">
+					<img ng-src="{{image | imgSrc}}">
+				</a>
+			</div>
+		</div>
+		<div class="col-md-1 hidden-sm hidden-xs slider-arrow" id="arrow-r">
+			next
+		</div>
+	</div>
+</div>

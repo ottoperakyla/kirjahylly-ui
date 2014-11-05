@@ -6,7 +6,9 @@ angular.module('myApp.bookList', ['ngRoute'])
 	function($scope, $http, $routeParams) {
 		$scope.page = 'kirjat';
 		$scope.pageSize = 5;
-		$scope.filters = [
+		$scope.currentPage = $routeParams.p != null ? $routeParams.p : 0;
+		$scope.params = $routeParams;
+		$scope.filters = [ //todo: fix filtering to affect whole data set instead of currently visible items
 		{
 			text: "Kirjan nimen mukaan",
 			value: "title"
@@ -33,6 +35,14 @@ angular.module('myApp.bookList', ['ngRoute'])
 				$scope.books = data.slice($routeParams.s - 1, $routeParams.e + 1);
 			} else {
 				$scope.books = data;
+			}
+
+			$scope.images = [];
+
+			for (var i = 0; i < data.length; i++) {
+				for(var prop in data[i])
+					if (prop=='image') 
+						$scope.images.push(data[i][prop]);
 			}
 			
 			$scope.pages = Math.ceil(data.length / $scope.pageSize);
@@ -86,10 +96,18 @@ angular.module('myApp.bookList', ['ngRoute'])
 
 		for (var i = 0; i < parseInt(item); i++) {
 			var pageNum = i+1;
+			var start = ((i*this.pageSize)+1);
+			var end = (pageNum*this.pageSize);
+			var nextStart = this.pageSize + ((i*this.pageSize)+1);
 
-			htmlString += '<span class="pagination-item active"><a href="#/books/?s='+((i*this.pageSize)+1)+'&e='+(pageNum*this.pageSize)+'">' + pageNum + '</a></span>';
+			if (i==this.currentPage) 
+				htmlString += '<span class="pagination-item active">';
+			else
+				htmlString += '<span class="pagination-item">';
+
+			htmlString += '<a href="#/books/?p='+i+'&s='+start+'&e='+end+'">' + pageNum + '</a></span>';
 		}
 
-		return htmlString + "... <span class='pagination-item'><a href='#nextPage'>>></a></span>";
+		return htmlString + "... <span class='pagination-item'><a href='#/books/?s="+2*this.params.s+"&e="+this.params.e+"'>>></a></span>";
 	}
 })

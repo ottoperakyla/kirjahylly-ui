@@ -4,9 +4,12 @@
 @fes-green: #84bd00;
 @fes-gray: #323232;
 @fes-gray-light: #e1dfe0;
+@fes-gray-lightest: #ededed;
 
 @star-radius: 5px;
 @star-size: @star-radius * 2;
+
+@button-width: 120px;
 
 body {
   font-size: 14px;
@@ -15,6 +18,11 @@ body {
 header {
   background-color: @fes-gray;
   border-bottom: 1px solid #686868;
+}
+
+h2 {
+  margin-top: 0;
+  font-size: 1.8em;
 }
 
 .header-logo {
@@ -41,9 +49,28 @@ header {
   }
 }
 
-p.reviewStars {
+img.detail {
+  margin-top: 10px;
+  width: 100px;
+  height: 140px;
+}
+
+p.review-stars {
   font-size: 2em;
   padding-top: 8px;
+}
+
+.review-stars-big {
+  .star {
+    width: @star-size * 2;
+    height: @star-size * 2;
+  }
+  .star.full, .star.empty {
+    border-radius: @star-radius * 2;
+  }
+  .star.half-left, .star.half-right {
+    width: @star-radius * 2;
+  }
 }
 
 .star {
@@ -95,6 +122,12 @@ p.reviewStars {
   text-transform: capitalize;
 }
 
+ul.book-detail {
+  padding: 0;
+  margin: 10px 0;
+  list-style: none;
+}
+
 .filters {
   input, select {
     width: 100%;
@@ -109,6 +142,52 @@ p.reviewStars {
   }
 }
 
+
+
+/* book-detail.html */
+
+.opinions-box {
+  background-color: @fes-gray-lightest;
+  .opinion {
+    border-bottom: 2px solid #fff;
+    .p-20-10();
+  }
+}
+
+.opinions-box-header {
+  background-color: @fes-gray;
+  font-weight: bold;
+  color: #fff;
+  border-bottom: 4px solid #fff;
+  .p-20-0();
+  h2 {
+    .no-spacing();
+  }
+}
+
+.opinions-box-links {
+  p {
+    .no-spacing();
+    .p-20-0();
+  }
+  a {
+   font-size: 1em;
+   font-weight: bold;
+   color: @fes-gray;
+   text-decoration: none;
+   &:after {
+    content: ">>";
+  }
+}
+
+}
+
+.row.book-detail {
+  padding: 20px 0;
+}
+
+/* book-listing.html */
+
 .container.book-listing {
   padding: 35px 0 12px 0;
   overflow: hidden;
@@ -120,11 +199,6 @@ p.reviewStars {
     border-top: 1px solid @fes-gray;
     border-bottom: 1px solid @fes-gray;
   }
-}
-
-h1.book-listing {
-  font-weight: bold;
-  margin-top: 0;
 }
 
 p.book-listing {
@@ -151,12 +225,12 @@ p.book-listing {
 }
 
 .pagination-item.active {
-    background-color: @fes-gray-light;
-    padding: 5px 10px;
-    border-radius: 3px;
-    a {
-      color: #fff;
-    }
+  background-color: @fes-gray-light;
+  padding: 5px 10px;
+  border-radius: 3px;
+  a {
+    color: #fff;
+  }
 }
 
 a.review {
@@ -167,7 +241,7 @@ a.review {
 button.list {
   border-radius: 3px;
   padding: 5px 0;
-  width: 120px;
+  width: @button-width;
   background-color: @fes-green;
   color: #fff;
   border: 1px solid lighten(@fes-green, 50%);
@@ -175,6 +249,16 @@ button.list {
   &:after {
     content: ' >'
   }
+}
+
+button.list-big {
+  width: @button-width + 50px;
+  padding: 8px 0;
+  font-size: 1em;
+}
+
+button.list-big-alt {
+  background-color: @fes-gray;
 }
 
 #content {
@@ -202,9 +286,10 @@ button.list {
 }
 
 .review {
-  border-top: @reviews-box-border;
-  &:nth-child(1) {
-    border-top: 0 !important;
+  border-bottom: @reviews-box-border;
+  .p-10-0();
+  &:last-child {
+    border-bottom: 0 !important;
   }
 }
 
@@ -220,14 +305,67 @@ footer {
 }
 
 /* mixins */ 
+.no-spacing {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
 .p-0 {
-  padding: 0;
+  padding: 0 !important;
+}
+
+.p-20 {
+  padding: 20px !important;
+}
+
+.p-20-10 {
+  padding: 20px 10px !important;
+}
+
+.p-10-0 {
+  padding: 10px 0 !important;
+}
+
+.p-20-0 {
+  padding: 20px 0 !important;
 }
 
 .pr-0 {
-  padding-right: 0;
+  padding-right: 0 !important; 
 }
 
 .pl-0 {
-  padding-left: 0;
+  padding-left: 0 !important;
+}
+
+.pt-0 {
+  padding-top: 0 !important;
+} 
+
+.pt-10 {
+  padding-top: 10px !important;
+}
+
+.mr-10 {
+  margin-right: 10px !important;
+}
+
+.ml-10 {
+  margin-left: 10px !important;
+}
+
+.ml-20 {
+  margin-left: 20px !important;
+}
+
+.left {
+  float: left !important;
+}
+
+.right {
+  float: right !important;
+}
+
+.em {
+  font-style: italic !important;
 }

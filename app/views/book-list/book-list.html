@@ -1,20 +1,4 @@
-<div class="container">
-	<div class="row">
-		<div class="col-md-1 hidden-sm hidden-xs slider-arrow" id="arrow-l">
-			prev
-		</div>
-		<div class="col-md-10 col-sm-12 col-xs-12">
-			<div ng-repeat="book in books" init-book-list-slider>
-				<a href="#/books/{{$index}}">
-					<img ng-src="{{book.image | imgSrc}}" title="{{book.title | notEmpty}}">
-				</a>
-			</div>
-		</div>
-		<div class="col-md-1 hidden-sm hidden-xs slider-arrow" id="arrow-r">
-			next
-		</div>
-	</div>
-</div>
+<book-slider></book-slider>
 
 <div class="spacer"></div>
 
@@ -51,7 +35,7 @@
 			<p class="book-listing"><a href="#/books/{{$index}}">{{book.author}}: <span class="book-title">{{book.title}}</span></a></p>
 		</div>
 		<div class="col-md-2 ">
-			<p ng-bind-html="book.reviews[0].stars | htmlStars" class="reviewStars"></p>
+			<p ng-bind-html="book.reviews[0].stars | htmlStars" class="review-stars"></p>
 		</div>
 		<div class="col-md-2 ">
 			<p><a class="review" href="#">Arviot({{book.reviews.length}})</a></p>

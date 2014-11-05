@@ -46,3 +46,10 @@ angular.module('myApp', [
 		templateUrl: 'partials/breadcrumbs.html'
 	}
 })
+
+.directive('bookSlider', function() {
+	return {
+		restrict: 'E',
+		templateUrl: 'partials/book-slider.html'
+	};
+})

@@ -1,48 +1,54 @@
 <div class="container">
 	<breadcrumbs></breadcrumbs>
 	<div class="row">
-		<div class="col-md-8">
-			<div class="row">
+		<div class="col-md-7">
+			<div class="row book-detail">
 				<div class="col-md-2">
-					<img ng-src="{{'demodata/img/' + book.image}}">
+					<img class="detail" ng-src="{{'demodata/img/' + book.image}}">
 				</div>
 				<div class="col-md-10">
-					<h1>{{book.author}}:<br><strong>{{book.title}}</strong></h1>
-					<p>Tunniste: {{book.id}}</p>
-					<p>Julkaisu vuosi: {{book.year}}</p>
-					<button>Lainaa</button>
-					<button>Palauta ja arvioi</button>
+					<h2>{{book.author}}:<br><strong>{{book.title}}</strong></h2>
+					<ul class="book-detail">
+						<li>Tunniste: {{book.id}}</li>
+						<li>Julkaisu vuosi: {{book.year}}</li>
+					</ul>
+					<button class="list list-big">Lainaa</button>
+					<button class="list list-big list-big-alt">Palauta ja arvioi</button>
 				</div>
 			</div>
 
-			<div class="row">
+			<div class="row p-10-0">
 				<div class="col-md-12">
 					<p>{{book.description}}</p>
 				</div>
 			</div>
 
 			<div class="reviews-box">
-				<div class="row">
+				<div class="row pt-10">
 					<div class="col-md-12">
-						<a class="review" href="#">ARVIOT {{book.reviews[0].stars}}</a>
+						<p class="left">ARVIOT</p><p ng-bind-html="book.reviews[0].stars | htmlStars" class="review-stars review-stars-big left pt-0 ml-10"></p>
 					</div>
 				</div>
 
 				<div class="row review" ng-repeat="review in book.reviews">
 					<div class="col-md-12">
-						<p>{{review.body | limitTo: 80 | dots}} <a href="#">&#x25BC;</a></p>
+						<p>{{review.body | limitTo: 160 | dots}} <a href="#"><img src="img/down-arrow.jpg"></a></p>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="col-md-4 opinions-box">
-			<h2>Plaaplaa ajatuksia</h2>
-			<div class="row" ng-repeat="opinion in book.opinions">
-				<div class="col-md-8">
-					<p>{{213193223 | date}}</p>
+		<div class="col-md-5 opinions-box">
+			<div class="row opinions-box-header">
+				<div class="col-md-12">
+					<h2>Plaaplaa ajatuksia</h2>
 				</div>
-				<div class="col-md-4">
+			</div>
+			<div class="row opinion" ng-repeat="opinion in book.opinions">
+				<div class="col-md-8 em">
+					<p><img class="mr-10" src="img/puhekupla.jpg">{{213193223 | date}}</p>
+				</div>
+				<div class="col-md-4 em">
 					{{opinion.user}}
 				</div>
 				<div class="row">
@@ -51,12 +57,12 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row opinions-box-links">
 				<div class="col-md-8">
-					<p>Osallistu keskusteluun</p>
+					<p><a href="#">Osallistu keskusteluun</a></p>
 				</div>
 				<div class="col-md-4">
-					Lisää
+					<p><a href="#">Lisää</a></p>
 				</div>
 			</div>
 		</div>
