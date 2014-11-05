@@ -1,41 +1,43 @@
-<breadcrumbs></breadcrumbs>
-
-<div class="row">
-	<div class="col-md-1 hidden-sm hidden-xs slider-arrow" id="arrow-l">
-		prev
-	</div>
-	<div class="col-md-10 col-sm-12 col-xs-12">
-		<div ng-repeat="book in books" init-book-list-slider>
-			<a href="#/books/{{$index}}">
-				<img ng-src="{{book.image | imgSrc}}" title="{{book.title | notEmpty}}">
-			</a>
+<div class="container">
+	<div class="row">
+		<div class="col-md-1 hidden-sm hidden-xs slider-arrow" id="arrow-l">
+			prev
 		</div>
-	</div>
-	<div class="col-md-1 hidden-sm hidden-xs slider-arrow" id="arrow-r">
-		next
+		<div class="col-md-10 col-sm-12 col-xs-12">
+			<div ng-repeat="book in books" init-book-list-slider>
+				<a href="#/books/{{$index}}">
+					<img ng-src="{{book.image | imgSrc}}" title="{{book.title | notEmpty}}">
+				</a>
+			</div>
+		</div>
+		<div class="col-md-1 hidden-sm hidden-xs slider-arrow" id="arrow-r">
+			next
+		</div>
 	</div>
 </div>
 
 <div class="spacer"></div>
 
-<div class="row">
-	<div class="col-md-12">
-		<div class="row">
-			<div class="col-md-3">
-				<h1>Kirjat</h1>
-			</div>
-			<div class="col-md-4">
-				<select ng-model="orderProp">
-					<option ng-repeat="filter in filters" value="{{filter.value}}">Lajittele: {{filter.text | dots}}</option>
-				</select>
-			</div>
-			<div class="col-md-5">
-				<div class="row">
-					<div class="col-md-9">
-						<input type="text" ng-model="query">
-					</div>
-					<div class="col-md-3 text-right">
-						<input type="submit" value="ETSI" />
+<div class="container filters">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-3 pl-0">
+					<h1 class="book-listing">Kirjat</h1>
+				</div>
+				<div class="col-md-4">
+					<select ng-model="orderProp">
+						<option ng-repeat="filter in filters" value="{{filter.value}}">Lajittele: {{filter.text | dots}}</option>
+					</select>
+				</div>
+				<div class="col-md-5">
+					<div class="row">
+						<div class="col-md-9">
+							<input type="text" ng-model="query">
+						</div>
+						<div class="col-md-3 text-right pr-0">
+							<input class="search" type="submit" value="ETSI" />
+						</div>
 					</div>
 				</div>
 			</div>
@@ -43,20 +45,28 @@
 	</div>
 </div>
 
-<div class="row" ng-repeat="book in books | filter: query | orderBy: orderProp">
-	<div class="col-md-4 ">
-		<p><a href="#/books/{{$index}}">{{book.author}}: <span class="book-title">{{book.title}}</span></a></p>
+<div class="container book-listing">
+	<div class="row book-listing" ng-repeat="book in books | filter: query | orderBy: orderProp | limitTo: pageSize">
+		<div class="col-md-4 ">
+			<p class="book-listing"><a href="#/books/{{$index}}">{{book.author}}: <span class="book-title">{{book.title}}</span></a></p>
+		</div>
+		<div class="col-md-2 ">
+			<p ng-bind-html="book.reviews[0].stars | htmlStars" class="reviewStars"></p>
+		</div>
+		<div class="col-md-2 ">
+			<p><a class="review" href="#">Arviot({{book.reviews.length}})</a></p>
+		</div>
+		<div class="col-md-4 text-right">
+			<button class="list">Lainaa</button>
+			<button class="list">Palauta ja arvioi</button>
+		</div>
 	</div>
-	<div class="col-md-2 ">
-		<p>{{book.reviews[0].stars}}</p>
-	</div>
-	<div class="col-md-2 ">
-		<p>Arviot({{book.reviews.length}})</p>
-	</div>
-	<div class="col-md-2 ">
-		<button class="list">Lainaa</button>
-	</div>
-	<div class="col-md-2 ">
-		<button class="list">Palauta ja arvioi</button>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 pl-0">
+			<p ng-bind-html="pages | pagination"></p>
+		</div>
 	</div>
 </div>

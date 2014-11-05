@@ -1,24 +1,92 @@
 /* main css */
 
 @reviews-box-border: 2px solid #bfbfbf;
+@fes-green: #84bd00;
+@fes-gray: #323232;
+@fes-gray-light: #e1dfe0;
+
+@star-radius: 5px;
+@star-size: @star-radius * 2;
+
+body {
+  font-size: 14px;
+}
 
 header {
-  background-color: #323232;
+  background-color: @fes-gray;
+  border-bottom: 1px solid #686868;
 }
 
 .header-logo {
-    background: url('../img/kirjahylly-logo.jpg') no-repeat right center;
-    height: 122px;
+  background: url('../img/kirjahylly-logo.jpg') no-repeat right center;
+  height: 122px;
 }
 
 .nav-tabs {
-  padding-top: 80px;
+  padding-top: 82px;
+  li a {
+    text-transform: uppercase;
+    color: @fes-gray-light;
+    border-radius: 2px 2px 0 0;
+    &:hover {
+      cursor: pointer !important;
+    }
+  }
+  li.active a {
+    color: @fes-green;
+    border-bottom: 0;
+    &:hover {
+      color: @fes-green;
+    }
+  }
+}
+
+p.reviewStars {
+  font-size: 2em;
+  padding-top: 8px;
+}
+
+.star {
+  margin-left: 2px;
+  height: @star-size; 
+  width: @star-size; 
+  display: block; 
+  float: left;
+  border:1px solid @fes-green;
+}
+
+.star.full, .star.half-left, .star.half-left {
+  background-color: @fes-green;
+}
+
+.star.empty, .star.half-right {
+  background-color: #fff;
+}
+
+.star.full, .star.empty {
+  border-radius: @star-radius;
+}
+
+.star.half-left, .star.half-right {
+  width: @star-radius;
+}
+
+.star.half-left {
+  border-bottom-left-radius:@star-radius;
+  border-top-left-radius:@star-radius; 
+}
+
+.star.half-right {
+  margin-left: 0;
+  border-bottom-right-radius:@star-radius;
+  border-top-right-radius:@star-radius; 
 }
 
 .spacer {
   height: 7px;
   background-color: #d0d0d0;
   border-bottom: 1px solid #e3e3e3;
+  margin: 20px 0 35px 0;
 }
 
 .breadcrumbs {
@@ -27,12 +95,90 @@ header {
   text-transform: capitalize;
 }
 
-input {
-  width: 100%;
+.filters {
+  input, select {
+    width: 100%;
+    height: 26px;
+    margin-top: 8px;
+  }
+  .search {
+    color: #fff;
+    background-color: @fes-gray;  
+    border: 1px solid lighten(@fes-gray, 30%);
+    border-radius: 3px;
+  }
+}
+
+.container.book-listing {
+  padding: 35px 0 12px 0;
+  overflow: hidden;
+}
+
+.row.book-listing {
+  padding-top: 8px;
+  &:nth-child(odd){
+    border-top: 1px solid @fes-gray;
+    border-bottom: 1px solid @fes-gray;
+  }
+}
+
+h1.book-listing {
+  font-weight: bold;
+  margin-top: 0;
+}
+
+p.book-listing {
+  font-size: 1.2em;
+  a {
+    color: #000;
+  }
+  .book-title {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+}
+
+.pagination-item {
+  margin-left: 17px;
+  font-size: 1.2em;
+  &:nth-child(1) {
+    margin-left: 0;
+  }
+  a {
+    text-decoration: none;
+    color: #000;
+  }
+}
+
+.pagination-item.active {
+    background-color: @fes-gray-light;
+    padding: 5px 10px;
+    border-radius: 3px;
+    a {
+      color: #fff;
+    }
+}
+
+a.review {
+  color: #000;
+  text-decoration: underline;
+}
+
+button.list {
+  border-radius: 3px;
+  padding: 5px 0;
+  width: 120px;
+  background-color: @fes-green;
+  color: #fff;
+  border: 1px solid lighten(@fes-green, 50%);
+  font-size: 0.8em;
+  &:after {
+    content: ' >'
+  }
 }
 
 #content {
-  padding: 50px 0;
+  padding: 24px 0 165px 0;
 }
 
 .slider-arrow {
@@ -57,50 +203,31 @@ input {
 
 .review {
   border-top: @reviews-box-border;
-}
-
-.review:nth-child(1) {
-  border-top: 0 !important;
+  &:nth-child(1) {
+    border-top: 0 !important;
+  }
 }
 
 footer {
-  background-color: #e1dfe0;
+  background-color: @fes-gray-light;
   position: fixed;
   bottom: 0;
   width: 100%;
-}
-
-.footer-content {
-  height: 68px;
-  background: url('../img/fes-logo.jpg') no-repeat left center;
-}
-
-
-/* demo app css stylesheet */
-
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 2em;
-  padding: 0 0 0.5em;
-  &:before {
-    content: "[";
-  }
-  &:after {
-    content: "]";
+  .footer-content {
+    height: 68px;
+    background: url('../img/fes-logo.jpg') no-repeat left center;
   }
 }
 
-.menu {
-  li {
-    display: inline;
-    &:before {
-      content: "|";
-      padding-right: 0.3em;
-    }
-    &:nth-child(1):before {
-      content: "";
-      padding: 0;
-    }
-  }
+/* mixins */ 
+.p-0 {
+  padding: 0;
+}
+
+.pr-0 {
+  padding-right: 0;
+}
+
+.pl-0 {
+  padding-left: 0;
 }
