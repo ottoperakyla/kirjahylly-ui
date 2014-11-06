@@ -4,33 +4,26 @@ angular.module('myApp.bookList', ['ngRoute'])
 
 .controller('BookListCtrl', ['$window', '$scope', '$http', '$routeParams',
 	function($window, $scope, $http, $routeParams) {
-		$scope.page = 'kirjat';
+		// default to page 0, if no parameter is given
+		if ($window.location.href.indexOf("?p=") == -1) 
+			$window.location.href += "?p=0";
+
 		$scope.origData;
 		$scope.pageSize = 5;
-		$scope.currentPage = $routeParams.p != null ? $routeParams.p : 0;
+		$scope.currentPage = $routeParams.p;
 		$scope.params = $routeParams;
 		$scope.filters = [
-		{
-			text: "Kirjan nimen mukaan",
-			value: "title"
-		},
-		{
-			text: "Kirjoittajan mukaan",
-			value: "author"
-		},
-		{
-			text: "Julkaisuvuoden mukaan",
-			value: "year"
-		},
-		{
-			text: "Arvostelun mukaan",
-			value: "review"
-		}
+			{text: "Kirjan nimen mukaan", value: "title"},
+			{text: "Kirjoittajan mukaan", value: "author"},
+			{text: "Julkaisuvuoden mukaan", value: "year"},
+			{text: "Arvostelun mukaan", value: "review"}
 		];
 
 		$scope.watchFilters = ['query', 'orderProp'];
 		$scope.watchFilters.forEach(function(filter){
 			$scope.$watch(filter, function(){
+				// get the dataset again and
+				// go to page 1 if filters are applied
 				$scope.books = $scope.origData;
 				$scope.currentPage = 0;
 				//var hrefParts = $window.location.href.split($window.location.href.match(/p=\d/)[0]);
