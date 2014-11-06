@@ -2,13 +2,14 @@
 
 angular.module('myApp.bookList', ['ngRoute'])
 
-.controller('BookListCtrl', ['$scope', '$http', '$routeParams',
-	function($scope, $http, $routeParams) {
+.controller('BookListCtrl', ['$window', '$scope', '$http', '$routeParams',
+	function($window, $scope, $http, $routeParams) {
 		$scope.page = 'kirjat';
+		$scope.origData;
 		$scope.pageSize = 5;
 		$scope.currentPage = $routeParams.p != null ? $routeParams.p : 0;
 		$scope.params = $routeParams;
-		$scope.filters = [ //todo: fix filtering to affect whole data set instead of currently visible items
+		$scope.filters = [
 		{
 			text: "Kirjan nimen mukaan",
 			value: "title"
@@ -26,8 +27,19 @@ angular.module('myApp.bookList', ['ngRoute'])
 			value: "review"
 		}
 		];
+
+		$scope.watchFilters = ['query', 'orderProp'];
+		$scope.watchFilters.forEach(function(filter){
+			$scope.$watch(filter, function(){
+				$scope.books = $scope.origData;
+				$scope.currentPage = 0;
+				//var hrefParts = $window.location.href.split($window.location.href.match(/p=\d/)[0]);
+				//var redirectUrl = hrefParts[0] + "p=0" + hrefParts[1];
+				//$window.location.href = redirectUrl;
+			});
+		});
+
 		$scope.orderProp = 'title';
-		console.log($routeParams);
 
 		$http.get('demodata/json/bookdata.json').success(function(data) {
 			console.log(data.length);
@@ -37,16 +49,18 @@ angular.module('myApp.bookList', ['ngRoute'])
 				$scope.books = data;
 			}
 
+			$scope.origData = data;
+
 			$scope.images = [];
 
 			for (var i = 0; i < data.length; i++) {
 				for(var prop in data[i])
 					if (prop=='image') 
 						$scope.images.push(data[i][prop]);
-			}
-			
-			$scope.pages = Math.ceil(data.length / $scope.pageSize);
-		});
+				}
+
+				$scope.pages = Math.ceil(data.length / $scope.pageSize);
+			});
 
 	}])
 
@@ -100,7 +114,7 @@ angular.module('myApp.bookList', ['ngRoute'])
 			var end = (pageNum*this.pageSize);
 			var nextStart = this.pageSize + ((i*this.pageSize)+1);
 
-			if (i==this.currentPage) 
+			if (i==this.params.p) 
 				htmlString += '<span class="pagination-item active">';
 			else
 				htmlString += '<span class="pagination-item">';

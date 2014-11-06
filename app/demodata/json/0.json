@@ -5,6 +5,7 @@
 	"year": "1972",
 	"description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. At quasi reiciendis, nihil, est quidem eligendi temporibus numquam officia quod distinctio! Quas quisquam ut voluptatem excepturi officiis earum blanditiis ducimus voluptate.",
 	"image": "0.jpg",
+	"borrowed": true,
 	"reviews": [
 	{
 		"body": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse culpa earum nihil ipsa impedit error sapiente facere vero. Illo aperiam inventore itaque quasi reprehenderit soluta doloribus optio eos est excepturi.",

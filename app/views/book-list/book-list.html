@@ -30,9 +30,10 @@
 </div>
 
 <div class="container book-listing">
-	<div class="row book-listing" ng-repeat="book in books | filter: query | orderBy: orderProp | limitTo: pageSize">
+	<div class="row book-listing" ng-disabled="{{book.borrowed}}" ng-repeat="book in books | filter: query | orderBy: orderProp | limitTo: pageSize">
 		<div class="col-md-4 ">
-			<p class="book-listing"><a href="#/books/{{$index}}">{{book.author}}: <span class="book-title">{{book.title}}</span></a></p>
+			<p class="book-listing"><a href="#/books/{{$index}}">{{book.author}}: <span class="book-title">{{book.title}}</span></a>
+		</p>
 		</div>
 		<div class="col-md-2 ">
 			<p ng-bind-html="book.reviews[0].stars | htmlStars" class="review-stars"></p>
@@ -41,8 +42,8 @@
 			<p><a class="review" href="#">Arviot({{book.reviews.length}})</a></p>
 		</div>
 		<div class="col-md-4 text-right">
-			<button class="list">Lainaa</button>
-			<button class="list">Palauta ja arvioi</button>
+			<button ng-disabled="{{book.borrowed}}" class="list">Lainaa</button>
+			<button ng-disabled="{{book.borrowed}}" class="list">Palauta ja arvioi</button>
 		</div>
 	</div>
 </div>

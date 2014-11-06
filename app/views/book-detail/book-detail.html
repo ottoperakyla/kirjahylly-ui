@@ -12,8 +12,8 @@
 						<li>Tunniste: {{book.id}}</li>
 						<li>Julkaisu vuosi: {{book.year}}</li>
 					</ul>
-					<button class="list list-big">Lainaa</button>
-					<button class="list list-big list-big-alt">Palauta ja arvioi</button>
+					<button ng-disabled="{{book.borrowed}}" class="list list-big">Lainaa</button>
+					<button ng-disabled="{{book.borrowed}}" class="list list-big list-big-alt">Palauta ja arvioi</button>
 				</div>
 			</div>
 
@@ -30,9 +30,9 @@
 					</div>
 				</div>
 
-				<div class="row review" ng-repeat="review in book.reviews">
+				<div class="row review" ng-repeat="review in book.reviews" ng-click="toggleExpand($index)" ng-init="initReview()">
 					<div class="col-md-12">
-						<p>{{review.body | limitTo: 160 | dots}} <a href="#"><img src="img/down-arrow.jpg"></a></p>
+						<p class="review-body">{{review.body | limitToTrailingDots: (chars[$index])}} <img ng-src="img/{{arrowDir[$index]}}-arrow.png"></p>
 					</div>
 				</div>
 			</div>

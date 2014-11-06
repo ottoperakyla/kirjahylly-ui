@@ -238,6 +238,14 @@ a.review {
   text-decoration: underline;
 }
 
+[disabled], [ng-disabled='true'] {
+  background-color: @fes-gray-light !important;
+  border-color: @fes-gray !important;
+  font-style: italic !important;
+  color: #fff !important;
+  cursor: default !important;
+}
+
 button.list {
   border-radius: 3px;
   padding: 5px 0;
@@ -304,7 +312,30 @@ footer {
   }
 }
 
+.review-body.active img {
+  transform: rotate(180deg);
+}
+
 /* mixins */ 
+.p(@t,@r,@b,@l) {
+  padding: @t @r @b @l;
+}
+.p(@a) {
+  padding: @a;
+}
+.pt(@a) {
+  padding-top: @a;
+}
+.pr(@a) {
+  padding-right: @a;
+}
+.pb(@a) {
+  padding-bottom: @a;
+}
+.pl(@a) {
+  padding-left: @a;
+}
+
 .no-spacing {
   padding: 0 !important;
   margin: 0 !important;
