@@ -4,16 +4,16 @@
 		<div class="col-md-7">
 			<div class="row book-detail">
 				<div class="col-md-2">
-					<img class="detail" ng-src="{{'demodata/img/' + book.image}}">
+					<img class="detail" ng-src="{{book.image}}">
 				</div>
 				<div class="col-md-10">
-					<h2>{{book.author}}:<br><strong>{{book.title}}</strong></h2>
+					<h2>{{book.author.first}} {{book.author.last}}:<br><strong>{{book.title}}</strong></h2>
 					<ul class="book-detail">
 						<li>Tunniste: {{book.id}}</li>
 						<li>Julkaisu vuosi: {{book.year}}</li>
 					</ul>
-					<button ng-disabled="{{book.borrowed}}" class="list list-big">Lainaa</button>
-					<button ng-disabled="{{book.borrowed}}" class="list list-big list-big-alt">Palauta ja arvioi</button>
+					<button ng-click="borrow(book.id)" class="list list-big">{{buttonText}}</button>
+					<!--<button ng-disabled="{{!active}}" ng-click="borrow(book.id)" class="list list-big list-big-alt">Palauta ja arvioi</button>-->
 				</div>
 			</div>
 
@@ -26,7 +26,7 @@
 			<div class="reviews-box">
 				<div class="row pt-10">
 					<div class="col-md-12">
-						<p class="left">ARVIOT</p><p ng-bind-html="book.reviews[0].stars | htmlStars" class="review-stars review-stars-big left pt-0 ml-10"></p>
+						<p class="left">ARVIOT</p><p ng-bind-html="book.reviewsAverage | htmlStars" class="review-stars review-stars-big left pt-0 ml-10"></p>
 					</div>
 				</div>
 
@@ -41,7 +41,7 @@
 		<div class="col-md-5 opinions-box">
 			<div class="row opinions-box-header">
 				<div class="col-md-12">
-					<h2>Plaaplaa ajatuksia</h2>
+					<h2>Ajatuksia</h2>
 				</div>
 			</div>
 			<div class="row opinion" ng-repeat="opinion in book.opinions">

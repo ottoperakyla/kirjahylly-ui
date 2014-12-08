@@ -1,9 +1,12 @@
 'use strict';
 
-angular.module('myApp.bookList', ['ngRoute'])
+angular.module('booklist', ['ngRoute'])
 
-.controller('BookListCtrl', ['$window', '$scope', '$http', '$routeParams',
-	function($window, $scope, $http, $routeParams) {
+.controller('BookListCtrl', function($window, $scope, $http, $routeParams, $controller, $location, GLOBALS, SessionService) {
+
+		if (!SessionService.get('user'))
+			$location.path("/login");
+
 		// default to page 0, if no parameter is given
 		if ($window.location.href.indexOf("?p=") == -1) 
 			$window.location.href += "?p=0";
@@ -13,10 +16,10 @@ angular.module('myApp.bookList', ['ngRoute'])
 		$scope.currentPage = $routeParams.p;
 		$scope.params = $routeParams;
 		$scope.filters = [
-			{text: "Kirjan nimen mukaan", value: "title"},
-			{text: "Kirjoittajan mukaan", value: "author"},
-			{text: "Julkaisuvuoden mukaan", value: "year"},
-			{text: "Arvostelun mukaan", value: "review"}
+		{text: "Kirjan nimen mukaan", value: "title"},
+		{text: "Kirjoittajan mukaan", value: "author"},
+		{text: "Julkaisuvuoden mukaan", value: "year"},
+		{text: "Arvostelun mukaan", value: "review"}
 		];
 
 		$scope.watchFilters = ['query', 'orderProp'];
@@ -26,16 +29,17 @@ angular.module('myApp.bookList', ['ngRoute'])
 				// go to page 1 if filters are applied
 				$scope.books = $scope.origData;
 				$scope.currentPage = 0;
-				//var hrefParts = $window.location.href.split($window.location.href.match(/p=\d/)[0]);
-				//var redirectUrl = hrefParts[0] + "p=0" + hrefParts[1];
-				//$window.location.href = redirectUrl;
 			});
 		});
 
 		$scope.orderProp = 'title';
 
-		$http.get('demodata/json/bookdata.json').success(function(data) {
-			console.log(data.length);
+		$http.get(GLOBALS.API_PATH + '/books').success(function(data) {
+			try {
+				console.log(JSON.parse(data));
+			} catch (e){}
+			
+
 			if ($routeParams.s != null && $routeParams.e != null) {
 				$scope.books = data.slice($routeParams.s - 1, $routeParams.e + 1);
 			} else {
@@ -43,19 +47,11 @@ angular.module('myApp.bookList', ['ngRoute'])
 			}
 
 			$scope.origData = data;
+			$scope.pages = Math.ceil(data.length / $scope.pageSize);
 
-			$scope.images = [];
+		});
 
-			for (var i = 0; i < data.length; i++) {
-				for(var prop in data[i])
-					if (prop=='image') 
-						$scope.images.push(data[i][prop]);
-				}
-
-				$scope.pages = Math.ceil(data.length / $scope.pageSize);
-			});
-
-	}])
+	})
 
 .directive('initBookListSlider', function(){
 	return function(scope, element) {

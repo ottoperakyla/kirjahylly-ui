@@ -4,9 +4,9 @@
 			prev
 		</div>
 		<div class="col-md-10 col-sm-12 col-xs-12">
-			<div ng-repeat="image in images" init-book-list-slider>
-				<a href="#/books/{{$index}}">
-					<img ng-src="{{image | imgSrc}}">
+			<div ng-repeat="book in books" init-book-list-slider>
+				<a href="#/books/{{book.id}}">
+					<img class="slider" ng-src="{{book.image}}">
 				</a>
 			</div>
 		</div>

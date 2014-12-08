@@ -20,6 +20,7 @@ header {
   border-bottom: 1px solid #686868;
 }
 
+
 h2 {
   margin-top: 0;
   font-size: 1.8em;
@@ -99,14 +100,14 @@ p.review-stars {
 }
 
 .star.half-left {
-  border-bottom-left-radius:@star-radius;
-  border-top-left-radius:@star-radius; 
+  border-bottom-left-radius:@star-radius*2;
+  border-top-left-radius:@star-radius*2; 
 }
 
 .star.half-right {
   margin-left: 0;
-  border-bottom-right-radius:@star-radius;
-  border-top-right-radius:@star-radius; 
+  border-bottom-right-radius:@star-radius*2;
+  border-top-right-radius:@star-radius*2; 
 }
 
 .spacer {
@@ -238,7 +239,7 @@ a.review {
   text-decoration: underline;
 }
 
-[disabled], [ng-disabled='true'] {
+[ng-disabled='true'] {
   background-color: @fes-gray-light !important;
   border-color: @fes-gray !important;
   font-style: italic !important;
@@ -277,6 +278,11 @@ button.list-big-alt {
   height: 104px;
   width: 17px;
   font-size: 0;
+}
+
+img.slider {
+  width: 80px;
+  height: 104px;
 }
 
 #arrow-l {
@@ -400,3 +406,43 @@ footer {
 .em {
   font-style: italic !important;
 }
+
+/* login page */
+  form {
+    margin-top: 20px;
+    button {
+      background-color: #85BE00 !important;
+      &:hover {
+        background-color: @fes-gray !important;
+      }
+    }
+    input, button {
+      margin-top: 10px;
+      text-align: center;
+    }
+  }
+
+body.login {
+  background-color: @fes-gray;
+  padding-top: 300px;
+  header, footer {
+    display: none;
+  }
+}
+
+.login-bg {
+  background-color: @fes-gray;
+}
+
+#login-logo {
+  background: url('../img/login.jpg') no-repeat center right;
+  height: 222px;
+}
+
+#login-btn {
+  background: url('../img/login-pallo.jpg') no-repeat center left;
+  height: 217px;
+  cursor: pointer;
+}
+
+/* end login page */

@@ -4,23 +4,50 @@
 angular.module('myApp', [
 	'ngRoute',
 	'ngSanitize',
-	'myApp.bookList',
-	'myApp.bookDetail',
-	'myApp.version'
+	'booklist',
+	'bookdetail',
+	'login'
 	])
+
+.constant("GLOBALS", {
+	"API_PATH": "http://localhost:8000/api"
+})
 
 .config(['$routeProvider', function($routeProvider) {
 	$routeProvider
 	.when('/books', {
 		templateUrl: 'views/book-list/book-list.html',
-		controller: 'BookListCtrl'
+		controller: 'BookListCtrl',
 	})
 	.when('/books/:bookId', {
 		templateUrl: 'views/book-detail/book-detail.html',
-		controller: 'BookDetailCtrl'
+		controller: 'BookDetailCtrl',
 	})
-	.otherwise({redirectTo: '/books'})
+	.when('/login', {
+		templateUrl: 'views/login/login.html',
+		controller: 'LoginCtrl',
+		css: 'css/login.css'
+	})
+	.otherwise({redirectTo: '/login'})
 }])
+
+.controller('MainCtrl', function($scope, $route, $rootScope, $location, $routeParams, SessionService){
+	$rootScope.$on('$routeChangeSuccess', function(e, current, pre){
+		$scope.bodyClass = $location.path().slice(1);
+	})
+
+	$scope.loggedIn = function() {
+		$scope.user = JSON.parse(SessionService.get('user'));
+		return $scope.user ? true : false;
+	}
+
+	$scope.logout = function() {
+		SessionService.unset('user');
+		$location.search("");
+		$location.path("/login");
+	}
+
+})
 
 .filter('notEmpty', function() {
 	return function(item) {
@@ -34,9 +61,17 @@ angular.module('myApp', [
 	}
 })
 
-.filter('imgSrc', function() {
-	return function(item) {
-		return 'demodata/img/' + item;
+.directive('appHeader', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'partials/app-header.html'
+	}
+})
+
+.directive('appFooter', function(){
+	return {
+		restrict: 'E',
+		templateUrl: 'partials/app-footer.html'
 	}
 })
 

@@ -16,38 +16,24 @@
 	<link rel="stylesheet" href="css/app.css">
 	<script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
-<body>
-
+<body ng-controller="MainCtrl" ng-class="bodyClass">
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
       <![endif]-->
 
-      <header>
-      	<div class="container">
-      		<div class="row">
-      			<div class="col-md-12  header-logo">
-      				<ul class="nav nav-tabs" role="tablist">
-      					<li class="active"><a href="#">Kirjat</a></li>
-      					<li><a href="#">Arviot</a></li>
-      					<li><a href="#">Plaaplaa</a></li>
-      				</ul>
-      			</div>
+      <app-header></app-header>
+
+      <div ng-if="loggedIn()" class="container-fluid">
+      	<div class="row">
+      		<div class="col-md-12">
+      			<p>logged in as: {{user.email}} [<a ng-click="logout()">Logout</a>]</p>
       		</div>
       	</div>
-      </header>
-
+      </div>
 
       <div ng-view id="content"></div>
 
-      <footer>
-      	<div class="container">
-      		<div class="row footer-content">
-      			<div class="col-md-12">
-      			</div>
-      		</div>
-      	</div>
-      <footer>
-
+      <app-footer></app-footer>
 
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
@@ -60,8 +46,8 @@
 <script src="app.js"></script>
 <script src="views/book-list/book-list.js"></script>
 <script src="views/book-detail/book-detail.js"></script>
-<script src="components/version/version.js"></script>
-<script src="components/version/version-directive.js"></script>
+<script src="views/login/login.js"></script>
 <script src="components/version/interpolate-filter.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 </body>
 </html>
